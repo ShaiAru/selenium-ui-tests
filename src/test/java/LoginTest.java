@@ -12,20 +12,7 @@ import static org.junit.Assert.assertFalse;
 import java.util.concurrent.TimeUnit;
 
 
-public class LoginTest {
-    WebDriver driver;
-
-    @Before
-    public void setUP(){
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.get("https://www.saucedemo.com");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    }
-    @After
-    public void tearDown(){
-        driver.quit();
-    }
+public class LoginTest extends BaseTest{
 
     @Test
     public void validLoginTest() {
