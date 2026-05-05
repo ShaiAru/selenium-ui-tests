@@ -1,17 +1,20 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.HashMap;
 import java.util.Map;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     protected WebDriver driver;
+    protected WebDriverWait wait;
 
     @Before
     public void setUP(){
@@ -29,24 +32,18 @@ public class BaseTest {
         options.addArguments("--disable-popup-blocking");
         options.addArguments("--disable-infobars");
         options.addArguments("--password-store=basic");
+
         driver = new ChromeDriver(options);
+        wait = new WebDriverWait(driver, 10);
         driver.get("https://www.saucedemo.com");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        /*WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-save-password-bubble");
-        options.addArguments("--disable-notifications");
-        options.addArguments("--disable-popup-blocking");
-        options.addArguments("--disable-infobars");
-        options.addArguments("--no-default-browser-check");
-        options.addArguments("--password-store=basic");
-        options.setExperimentalOption("prefs", new java.util.HashMap<String, Object>() {{
-            put("credentials_enable_service", false);
-            put("profile.password_manager_enabled", false);
-        }});
-        driver = new ChromeDriver(options);
-        driver.get("https://www.saucedemo.com");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);*/
+
+        driver.findElement(By.id("user-name")).sendKeys("standard_user");
+        driver.findElement(By.id("password")).sendKeys("secret_sauce");
+        driver.findElement(By.id("login-button")).click();
+
+
+
     }
     @After
     public void tearDown(){
