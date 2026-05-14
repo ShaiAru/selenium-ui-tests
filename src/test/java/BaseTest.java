@@ -61,8 +61,6 @@ public class BaseTest {
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
         driver.findElement(By.id("login-button")).click();
 
-
-
     }
     @After
     public void tearDown(){

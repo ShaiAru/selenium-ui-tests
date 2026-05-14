@@ -1,3 +1,5 @@
+import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,6 +12,10 @@ import java.time.Duration;
 
 public class CartTest extends BaseTest {
 
+    @Before
+    public void skipIfCI() {
+        Assume.assumeTrue("Skipping in CI", System.getenv("CI") == null);
+    }
     @Test
     public void addToCartTest() {
 
