@@ -36,6 +36,7 @@ public class BaseTest {
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--window-size=1920,1080");
         //tells Chrome to use the disk instead of shared memory
         // — shared memory is very limited on GitHub's
         // cloud machines and causes Chrome to silently fail to load pages.
@@ -47,6 +48,10 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         driver.get("https://www.saucedemo.com");
+        // Take screenshot to debug what page loaded
+        org.openqa.selenium.TakesScreenshot ts = (org.openqa.selenium.TakesScreenshot) driver;
+        byte[] screenshot = ts.getScreenshotAs(org.openqa.selenium.OutputType.BYTES);
+        java.nio.file.Files.write(java.nio.file.Paths.get("screenshot.png"), screenshot);
 
 
 
