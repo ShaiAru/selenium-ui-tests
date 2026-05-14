@@ -33,6 +33,9 @@ public class BaseTest {
         options.addArguments("--disable-infobars");
         options.addArguments("--password-store=basic");
 
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, 10);
         driver.get("https://www.saucedemo.com");
