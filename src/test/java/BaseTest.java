@@ -48,12 +48,12 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         driver.get("https://www.saucedemo.com");
-        // Take screenshot to debug what page loaded
-        org.openqa.selenium.TakesScreenshot ts = (org.openqa.selenium.TakesScreenshot) driver;
-        byte[] screenshot = ts.getScreenshotAs(org.openqa.selenium.OutputType.BYTES);
-        java.nio.file.Files.write(java.nio.file.Paths.get("screenshot.png"), screenshot);
-
-
+        // Only login if not running in CI
+        if (System.getenv("CI") == null) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user-name"))).sendKeys("standard_user");
+            driver.findElement(By.id("password")).sendKeys("secret_sauce");
+            driver.findElement(By.id("login-button")).click();
+        }
 
 
         //driver.findElement(By.id("user-name")).sendKeys("standard_user");
