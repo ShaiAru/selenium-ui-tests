@@ -35,13 +35,21 @@ public class BaseTest {
 
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        //tells Chrome to use the disk instead of shared memory
+        // — shared memory is very limited on GitHub's
+        // cloud machines and causes Chrome to silently fail to load pages.
 
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, 10);
-        driver.get("https://www.saucedemo.com");
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        driver.get("https://www.saucedemo.com");
+
+
+
 
         //driver.findElement(By.id("user-name")).sendKeys("standard_user");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user-name"))).sendKeys("standard_user");
