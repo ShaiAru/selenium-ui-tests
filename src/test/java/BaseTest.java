@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
@@ -39,9 +39,12 @@ public class BaseTest {
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, 10);
         driver.get("https://www.saucedemo.com");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 
-        driver.findElement(By.id("user-name")).sendKeys("standard_user");
+        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        //driver.findElement(By.id("user-name")).sendKeys("standard_user");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user-name"))).sendKeys("standard_user");
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
         driver.findElement(By.id("login-button")).click();
 
